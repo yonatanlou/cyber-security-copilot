@@ -1,0 +1,19 @@
+[project]
+name = "rag-playground"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "chromadb>=1.0.16",
+    "langchain>=0.3.27",
+    "langchain-chroma>=0.2.5",
+    "langchain-community>=0.3.27",
+    "langchain-openai>=0.3.30",
+    "lark>=1.2.2",
+    "markdown>=3.8.2",
+    "pydantic>=2.11.7",
+    "pygments>=2.19.2",
+    "pytest>=8.4.1",
+    "python-dotenv>=1.1.1",
+]

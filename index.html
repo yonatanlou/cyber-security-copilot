@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Copilot - Technical Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+        }
+        
+        .toc-sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .toc-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .toc ul ul {
+            padding-left: 15px;
+            margin-top: 5px;
+        }
+        
+        .toc li {
+            margin-bottom: 5px;
+        }
+        
+        .toc a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .toc-permalink {
+            opacity: 0;
+            margin-left: 5px;
+            color: #999;
+        }
+        
+        h1:hover .toc-permalink,
+        h2:hover .toc-permalink,
+        h3:hover .toc-permalink,
+        h4:hover .toc-permalink,
+        h5:hover .toc-permalink,
+        h6:hover .toc-permalink {
+            opacity: 1;
+        }
+        
+        /* Python code blocks with syntax highlighting */
+        pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #F00 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #04D } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #00F; font-weight: bold } /* Name.Class */
+.highlight .no { color: #800 } /* Name.Constant */
+.highlight .nd { color: #A2F } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00F } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #BBB } /* Text.Whitespace */
+.highlight .mb { color: #666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666 } /* Literal.Number.Float */
+.highlight .mh { color: #666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #00F } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666 } /* Literal.Number.Integer.Long */
+        
+        .highlight {
+            margin: 20px 0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .highlight pre {
+            margin: 0;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+        
+        /* Plain code blocks (no language specified) */
+        pre:not(.highlight) {
+            background-color: #f5f5f5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #333;
+        }
+        
+        /* Inline code */
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #333;
+        }
+        
+        /* Code inside highlighted blocks */
+        .highlight code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+        
+        /* Plain pre code blocks */
+        pre:not(.highlight) code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        
+        blockquote {
+            border-left: 3px solid #ddd;
+            margin: 20px 0;
+            padding-left: 20px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="toc-sidebar">
+            <div class="toc-title">Table of Contents</div>
+            <div class="toc">
+                <div class="toc">
+<ul>
+<li><a href="#cybersecurity-copilot-technical-documentation">Cybersecurity Copilot - Technical Documentation</a><ul>
+<li><a href="#1-solution-design--architecture">1. Solution Design &amp; Architecture</a><ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#architecture-flow">Architecture Flow</a></li>
+<li><a href="#technology-stack">Technology Stack</a></li>
+</ul>
+</li>
+<li><a href="#2-prompt-engineering">2. Prompt Engineering</a><ul>
+<li><a href="#summarization-prompt">Summarization Prompt</a></li>
+<li><a href="#mitigation-prompt">Mitigation Prompt</a></li>
+<li><a href="#edge-case-handling-noisy-input">Edge Case Handling - Noisy Input</a></li>
+</ul>
+</li>
+<li><a href="#3-sample-output">3. Sample Output</a><ul>
+<li><a href="#input-example-1-brute-force-attack">Input Example 1: Brute Force Attack</a></li>
+<li><a href="#input-example-2-noisy-data-incident">Input Example 2: Noisy data incident</a></li>
+</ul>
+</li>
+<li><a href="#4-working-prototype">4. Working Prototype</a></li>
+<li><a href="#5-retrieval-pipeline-rag-component">5. Retrieval Pipeline (RAG Component)</a><ul>
+<li><a href="#implementation-overview">Implementation Overview</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#key-components">Key Components</a><ul>
+<li><a href="#1-vector-search-engine">1. Vector Search Engine</a></li>
+<li><a href="#2-incident-knowledge-base">2. Incident Knowledge Base</a></li>
+<li><a href="#3-search-methods">3. Search Methods</a></li>
+</ul>
+</li>
+<li><a href="#query-constructor-details">Query Constructor Details</a></li>
+<li><a href="#supported-metadata-fields">Supported Metadata Fields</a></li>
+<li><a href="#usage-example">Usage Example</a></li>
+<li><a href="#query-examples-and-expected-behavior">Query Examples and Expected Behavior</a></li>
+<li><a href="#scaling-considerations">Scaling Considerations</a></li>
+</ul>
+</li>
+<li><a href="#6-evaluation--cost-awareness">6. Evaluation &amp; Cost Awareness</a><ul>
+<li><a href="#performance-metrics">Performance Metrics</a></li>
+<li><a href="#hallucination-risk-mitigation">Hallucination Risk Mitigation</a></li>
+<li><a href="#cost-estimation">Cost Estimation</a></li>
+<li><a href="#monitoring-strategy">Monitoring Strategy</a></li>
+<li><a href="#performance-optimization">Performance Optimization</a></li>
+<li><a href="#drift-detection">Drift Detection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </div>
+        </div>
+        <div class="main-content">
+            <h1 id="cybersecurity-copilot-technical-documentation">Cybersecurity Copilot - Technical Documentation<a class="toc-permalink" href="#cybersecurity-copilot-technical-documentation" title="Link to this section">&para;</a></h1>
+<h2 id="1-solution-design--architecture">1. Solution Design &amp; Architecture<a class="toc-permalink" href="#1-solution-design--architecture" title="Link to this section">&para;</a></h2>
+<h3 id="overview">Overview<a class="toc-permalink" href="#overview" title="Link to this section">&para;</a></h3>
+<p>The Cybersecurity Copilot is a GenAI-powered assistant designed to help
+security analysts quickly analyze incident reports, generate actionable
+mitigation plans, and retrieve similar historical incidents for context.</p>
+<h3 id="architecture-flow">Architecture Flow<a class="toc-permalink" href="#architecture-flow" title="Link to this section">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────┐
+│  Raw Incident   │
+│     Report      │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Input Handler  │◄── Noise Detection
+│   &amp; Cleaner     │    &amp; Preprocessing
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│   LLM Engine    │
+│  (Summarizer)   │◄── System Prompts
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│   Mitigation    │
+│    Generator    │◄── Best Practices DB
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Vector Search  │
+│   (RAG/Hybrid)  │◄── Historical Incidents
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Final Output   │
+│   &amp; Metrics     │
+└─────────────────┘
+</code></pre></div>
+
+<h3 id="technology-stack">Technology Stack<a class="toc-permalink" href="#technology-stack" title="Link to this section">&para;</a></h3>
+<ul>
+<li><strong>LLM Provider</strong>: OpenAI GPT-4o-mini (primary), with support for
+    GPT-4.</li>
+<li><strong>Vector Database</strong>: ChromaDb for local development.</li>
+<li><strong>Embedding Model</strong>: text-embedding-3-small (OpenAI)</li>
+<li><strong>Framework</strong>: LangChain for orchestration</li>
+<li><strong>Monitoring</strong>: Custom metrics tracking for tokens, latency, and
+    costs</li>
+</ul>
+<h2 id="2-prompt-engineering">2. Prompt Engineering<a class="toc-permalink" href="#2-prompt-engineering" title="Link to this section">&para;</a></h2>
+<h3 id="summarization-prompt">Summarization Prompt<a class="toc-permalink" href="#summarization-prompt" title="Link to this section">&para;</a></h3>
+<details>  
+<summary> Summarization Prompt</summary>
+
+
+<div class="highlight"><pre><span></span><code>**System Message:**
+
+    You are an expert cybersecurity analyst assistant. Your role is to help security teams quickly understand and respond to incidents.
+
+    TASK: Summarize security incident reports concisely and accurately.
+
+    OUTPUT FORMAT:
+    - Executive Summary: 2-3 sentences overview
+    - Technical Details: Key technical indicators and artifacts
+    - Affected Systems: List of impacted systems/services
+    - Attack Vector: Identified attack method if applicable
+    - Severity Assessment: Critical/High/Medium/Low with justification
+    - Timeline: Key events in chronological order
+
+    Be precise, factual, and highlight the most critical information for rapid response.
+</code></pre></div>
+
+
+</details>
+
+<p><strong>Design Rationale:</strong></p>
+<ul>
+<li><strong>Structured output</strong> ensures consistency across different incidents</li>
+<li><strong>Role definition</strong> (\"expert cybersecurity analyst\") primes the
+    model for domain expertise</li>
+<li><strong>Explicit sections</strong> prevent important details from being
+    overlooked</li>
+<li><strong>\"Be precise, factual\"</strong> reduces hallucination risk</li>
+</ul>
+<h3 id="mitigation-prompt">Mitigation Prompt<a class="toc-permalink" href="#mitigation-prompt" title="Link to this section">&para;</a></h3>
+<details>  
+<summary> Mitigation Prompt</summary>
+**System Message:**
+
+    You are an expert incident response specialist. Generate actionable mitigation plans for security incidents.
+
+    GUIDELINES:
+    1. Prioritize immediate containment actions
+    2. Include both short-term and long-term recommendations
+    3. Consider business continuity alongside security
+    4. Follow industry best practices (NIST, SANS)
+    5. Be specific and actionable
+
+    OUTPUT FORMAT:
+    ## Immediate Actions (0-4 hours)
+    - Specific containment steps
+    - Evidence preservation
+    - Communication requirements
+
+    ## Short-term Remediation (1-7 days)
+    - System hardening
+    - Patch management
+    - Access control updates
+
+    ## Long-term Improvements (1-4 weeks)
+    - Process improvements
+    - Security control enhancements
+    - Training recommendations
+
+    ## Success Metrics
+    - KPIs to measure mitigation effectiveness
+</details>
+
+<p><strong>NOTE</strong> For all prompts, i decided to add a few exmaples to the user
+prompt. Its a good question if it will be better in the system prompt
+(Could be an interesting research). My hunch is that the best thing to
+do, is to make a more general examples in the system prompts and
+generate multiple examples for the user prompt. Then i will randomly
+choose examples, and we could analyze what exampels are working the
+best. Ive added only one example for the summary prompt for not making
+this doc to length</p>
+<p><strong>Few-Shot Example (included in implementation):</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For ransomware incidents</span>
+<span class="n">example</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;incident&quot;</span><span class="p">:</span> <span class="s2">&quot;Ransomware detected on file server&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    ## Immediate Actions (0-4 hours)</span>
+<span class="s2">    - Isolate affected systems from network</span>
+<span class="s2">    - Identify patient zero and attack vector</span>
+<span class="s2">    - Activate incident response team</span>
+<span class="s2">    - Begin forensic imaging of affected systems</span>
+
+<span class="s2">    ## Short-term Remediation (1-7 days)</span>
+<span class="s2">    - Restore from clean backups after validation</span>
+<span class="s2">    - Reset all credentials for affected accounts</span>
+<span class="s2">    - Deploy EDR to all endpoints</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="edge-case-handling-noisy-input">Edge Case Handling - Noisy Input<a class="toc-permalink" href="#edge-case-handling-noisy-input" title="Link to this section">&para;</a></h3>
+<p><strong>Specialized Cleaning Prompt:</strong></p>
+<div class="highlight"><pre><span></span><code>You are a data preprocessing expert for security incidents. You have a vast knowledge of various cyber security incidents.
+
+TASK: Clean and structure potentially noisy, incomplete, or poorly formatted security incident data.
+
+INSTRUCTIONS:
+1. Extract all relevant security information
+2. Fill in obvious gaps with [MISSING: field_name]
+3. Standardize technical terms and acronyms
+4. Remove redundant information
+5. Flag any suspicious or potentially corrupted data
+6. Maintain all IoCs (Indicators of Compromise)
+
+OUTPUT: A cleaned, structured version of the incident report.
+</code></pre></div>
+
+<p><strong>Sample Noisy Input:</strong></p>
+<div class="highlight"><pre><span></span><code>===ALERT===ALERT===
+TIME:::    03:45am
+
+firewall logs showing..... BLOCKED BLOCKED BLOCKED
+IP: 123.456.789.0 (obviously wrong)    port 22 SSH
+
+admin said virus maybe???? check asap!!!
+
+CPU 100%%%%%%%%%
+[DATA CORRUPTED] ▪▪▪▪▪
+</code></pre></div>
+
+<p><strong>Cleaned Output:</strong></p>
+<div class="highlight"><pre><span></span><code>INCIDENT REPORT
+Time: 03:45 AM [MISSING: Date and timezone]
+
+Firewall Activity:
+- Multiple blocked connection attempts detected
+- Source IP: [INVALID: 123.456.789.0 - notation error]
+- Target Port: 22 (SSH)
+- Status: Blocked by firewall
+
+Reported Issues:
+- Potential malware infection (unconfirmed)
+- CPU utilization: 100%
+- Data corruption detected in logs
+
+Priority: HIGH - Requires immediate investigation
+[MISSING: Affected systems, user accounts, additional context]
+</code></pre></div>
+
+<h2 id="3-sample-output">3. Sample Output<a class="toc-permalink" href="#3-sample-output" title="Link to this section">&para;</a></h2>
+<h3 id="input-example-1-brute-force-attack">Input Example 1: Brute Force Attack<a class="toc-permalink" href="#input-example-1-brute-force-attack" title="Link to this section">&para;</a></h3>
+<p><strong>Input:</strong></p>
+<div class="highlight"><pre><span></span><code>INCIDENT REPORT - 2024-01-15 14:23:00 UTC
+
+Multiple failed login attempts detected on production server PROD-WEB-01.
+Source IPs: 192.168.1.105, 10.0.0.23, 45.142.122.76 (external)
+
+User accounts targeted: admin, root, dbadmin, service_account
+Total attempts: 2,847 over 3 hour period
+
+Additional observations:
+- Unusual outbound traffic to IP 45.142.122.76 port 4444
+- New scheduled task created: &quot;WindowsUpdate&quot; (suspicious)
+- Memory usage spike at 14:45 UTC
+- PowerShell execution with encoded command detected
+
+Current status: Server isolated from network
+Severity: HIGH
+</code></pre></div>
+
+<p><strong>Output Summary:</strong></p>
+<div class="highlight"><pre><span></span><code>SUMMARY:
+Executive Summary: A series of failed login attempts targeting multiple user accounts on production server PROD-WEB-01 were detected, followed by suspicious outbound traffic and the creation of a potentially malicious scheduled task. The server has been isolated from the network to prevent further compromise.
+
+Technical Details: 2,847 failed login attempts from IPs 192.168.1.105, 10.0.0.23, and external IP 45.142.122.76; outbound traffic to IP 45.142.122.76 on port 4444; suspicious scheduled task &quot;WindowsUpdate&quot; created; PowerShell execution with encoded command observed.
+
+Affected Systems: PROD-WEB-01 (production server)
+
+Attack Vector: Brute force login attempts targeting administrative accounts
+
+Severity Assessment: HIGH - Multiple failed login attempts and suspicious activities indicate a potential compromise, necessitating immediate investigation and response.
+
+Timeline:
+- 14:23 - Initial detection of failed login attempts
+- 14:45 - Memory usage spike observed
+- 14:45 - Outbound traffic to IP 45.142.122.76 on port 4444 detected
+- 14:45 - Creation of suspicious scheduled task &quot;WindowsUpdate&quot;
+- Current status: Server isolated from network
+</code></pre></div>
+
+<p><strong>Mitigation Plan:</strong></p>
+<div class="highlight"><pre><span></span><code>MITIGATION PLAN:
+## Immediate Actions (0-4 hours)
+- **Containment Steps:**
+  - Confirm isolation of PROD-WEB-01 from the network to prevent further unauthorized access and lateral movement.
+  - Block the identified malicious IP addresses (192.168.1.105, 10.0.0.23, and 45.142.122.76) at the firewall level to prevent further attempts.
+  - Disable the suspicious scheduled task &quot;WindowsUpdate&quot; to halt any potential malicious activities.
+
+- **Evidence Preservation:**
+  - Create a forensic image of the PROD-WEB-01 server to preserve the current state for investigation.
+  - Collect logs related to authentication attempts, outbound traffic, and scheduled tasks from the server and any relevant network devices.
+  - Ensure that all logs are backed up and secured to maintain integrity for future analysis.
+
+- **Communication Requirements:**
+  - Notify the incident response team and relevant stakeholders (IT management, security team, and affected users) about the incident and the immediate actions taken.
+  - Prepare a communication plan for informing users about potential impacts and the importance of password changes.
+
+## Short-term Remediation (1-7 days)
+- **System Hardening:**
+  - Review and enforce strong password policies for all user accounts, especially administrative accounts.
+  - Implement account lockout policies to temporarily disable accounts after a specified number of failed login attempts.
+
+- **Patch Management:**
+  - Ensure that all software, especially the operating system and applications on PROD-WEB-01, are updated with the latest security patches.
+  - Review and patch any known vulnerabilities related to remote access services.
+
+- **Access Control Updates:**
+  - Review user access privileges and remove any unnecessary administrative privileges.
+  - Implement multi-factor authentication (MFA) for all administrative accounts to add an additional layer of security.
+
+## Long-term Improvements (1-4 weeks)
+- **Process Improvements:**
+  - Develop and implement an incident response plan that includes procedures for detecting and responding to brute force attacks.
+  - Establish a regular review process for user accounts and privileges to ensure compliance with the principle of least privilege.
+
+- **Security Control Enhancements:**
+  - Deploy an Intrusion Detection System (IDS) to monitor for unusual login attempts and outbound traffic patterns.
+  - Implement logging and monitoring solutions that provide real-time alerts for suspicious activities, including failed login attempts and scheduled task changes.
+
+- **Training Recommendations:**
+  - Conduct security awareness training for all employees, focusing on recognizing phishing attempts and the importance of strong passwords.
+  - Provide specialized training for IT staff on incident response procedures and the use of forensic tools.
+
+## Success Metrics
+- **KPIs to Measure Mitigation Effectiveness:**
+  - Reduction in the number of failed login attempts on production servers by 90% within the next month.
+  - Successful implementation of MFA for 100% of administrative accounts within 4 weeks.
+  - Completion of security awareness training for all employees within 4 weeks.
+  - Zero successful unauthorized access attempts reported in the following quarter.
+  - Regular review and updates of access control policies conducted quarterly, with documented changes and improvements.
+</code></pre></div>
+
+<p><strong>Model Used:</strong> GPT-4o-mini <strong>Tokens Used:</strong> \~2183 <strong>Estimated Cost:</strong>
+\$0.0007</p>
+<h3 id="input-example-2-noisy-data-incident">Input Example 2: Noisy data incident<a class="toc-permalink" href="#input-example-2-noisy-data-incident" title="Link to this section">&para;</a></h3>
+<p><strong>Input:</strong></p>
+<div class="highlight"><pre><span></span><code>Security Alert: Unusual data transfer detected
+Date: 2024-12-10
+System: Database server DB-PROD-03
+
+Large data export to external cloud storage detected.
+- 47GB transferred to AWS S3 bucket
+- Bucket name: temp-backup-2024
+- Transfer initiated by user: contractor_john
+- Time: 02:30 AM local time
+- User&#39;s normal hours: 9 AM - 5 PM
+
+User account shows VPN connection from unusual location: Russia
+Normal location: San Francisco, USA
+</code></pre></div>
+
+<p><strong>Cleaned output:</strong></p>
+<div class="highlight"><pre><span></span><code>CLEANED OUTPUT:
+**Incident Report**
+
+**Incident Time:** 03:45 AM
+
+**Incident Type:** Firewall Block
+
+**Details:**
+- **Firewall Logs:** Blocked access attempts
+- **Source IP Address:** 123.456.789.0 [MISSING: VALID_IP_ADDRESS]
+- **Port:** 22 (SSH)
+- **Potential Threat:** Virus suspected [MISSING: THREAT_DETAILS]
+- **CPU Usage:** 100% [MISSING: CPU_USAGE_DETAILS]
+- **Data Status:** [DATA CORRUPTED] [FLAGGED: DATA_CORRUPTION]
+
+**Actions Taken:**
+- Password changed already [MISSING: PASSWORD_CHANGE_DETAILS]
+
+**Urgency Level:** High
+
+**Additional Notes:**
+- Admin requested immediate assistance.
+
+**Indicators of Compromise (IoCs):**
+- Source IP: 123.456.789.0
+- Port: 22 (SSH)
+
+**Recommendations:**
+- Verify the validity of the source IP address.
+- Investigate potential virus presence.
+- Monitor CPU usage for anomalies.
+- Review password change logs for unauthorized access.
+</code></pre></div>
+
+<p><strong>Output Summary:</strong></p>
+<div class="highlight"><pre><span></span><code>SUMMARY:
+Executive Summary: A high urgency incident was detected involving multiple blocked SSH access attempts from a suspicious IP address, leading to 100% CPU usage and flagged data corruption. Immediate actions included changing passwords and requesting further investigation into potential virus threats.
+
+Technical Details: Blocked access attempts from source IP 123.456.789.0 on port 22 (SSH), 100% CPU usage observed, data corruption flagged.
+
+Affected Systems: Affected system(s) with SSH access (specific system not identified).
+
+Attack Vector: Unauthorized SSH access attempts potentially linked to a virus.
+
+Severity Assessment: HIGH - High CPU usage and data corruption indicate a serious threat, requiring immediate investigation and remediation.
+
+Timeline:
+- 03:45 AM - Firewall logs show blocked SSH access attempts from 123.456.789.0
+- Immediate - CPU usage spikes to 100%, data corruption flagged
+- Immediate - Passwords changed, admin requests assistance for further investigation
+</code></pre></div>
+
+<p><strong>Mitigation Plan:</strong></p>
+<div class="highlight"><pre><span></span><code>## Immediate Actions (0-4 hours)
+- **Containment Steps:**
+  - Isolate affected systems from the network to prevent lateral movement and further data corruption.
+  - Block the suspicious IP address (123.456.789.0) at the firewall level to prevent any further access attempts.
+  - Disable SSH access on affected systems temporarily until a full investigation can be conducted.
+
+- **Evidence Preservation:**
+  - Collect and secure logs from the firewall, SSH access attempts, and system performance metrics (CPU usage, memory usage).
+  - Create a forensic image of the affected systems to preserve the current state for further analysis.
+  - Document all actions taken during the incident response for future reference and compliance.
+
+- **Communication Requirements:**
+  - Notify the incident response team and relevant stakeholders (IT, management, legal) about the incident and actions taken.
+  - Prepare a communication plan for informing affected users about potential data loss and ongoing investigations.
+
+## Short-term Remediation (1-7 days)
+- **System Hardening:**
+  - Review and strengthen SSH configurations, including disabling root login, enforcing key-based authentication, and changing the default SSH port if applicable.
+  - Implement fail2ban or similar tools to limit the number of failed login attempts and block offending IP addresses.
+
+- **Patch Management:**
+  - Conduct a vulnerability assessment on the affected systems and apply necessary patches to the operating system, SSH service, and any other relevant software.
+  - Ensure that all systems have the latest security updates installed to mitigate known vulnerabilities.
+
+- **Access Control Updates:**
+  - Review user accounts with SSH access and remove any unnecessary or inactive accounts.
+  - Implement role-based access control (RBAC) to ensure that only authorized personnel have SSH access to critical systems.
+
+## Long-term Improvements (1-4 weeks)
+- **Process Improvements:**
+  - Develop and implement an incident response plan that includes specific procedures for handling unauthorized access attempts and data corruption incidents.
+  - Establish a regular review process for firewall rules and access controls to ensure they are up-to-date and effective.
+
+- **Security Control Enhancements:**
+  - Deploy an Intrusion Detection System (IDS) or Intrusion Prevention System (IPS) to monitor for suspicious activity and provide real-time alerts.
+  - Implement multi-factor authentication (MFA) for all remote access services, including SSH, to add an additional layer of security.
+
+- **Training Recommendations:**
+  - Conduct security awareness training for all employees, focusing on recognizing phishing attempts and the importance of strong password practices.
+  - Provide specialized training for system administrators on secure SSH configurations and incident response procedures.
+
+## Success Metrics
+- **KPIs to Measure Mitigation Effectiveness:**
+  - Reduction in the number of blocked SSH access attempts over a defined period (e.g., monthly).
+  - Decrease in CPU usage spikes and incidents of data corruption reported in the following months.
+  - Percentage of systems compliant with updated security configurations and patch management policies.
+  - Number of employees completing security awareness training and their subsequent performance in phishing simulations.
+  - Time taken to detect and respond to future incidents, aiming for a reduction in response time compared to this incident.
+</code></pre></div>
+
+<p>Tokens used: 2114 Estimated cost: \$0.0007</p>
+<h2 id="4-working-prototype">4. Working Prototype<a class="toc-permalink" href="#4-working-prototype" title="Link to this section">&para;</a></h2>
+<p>The core implementation includes:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Key components implemented:</span>
+
+<span class="mf">1.</span> <span class="n">CybersecurityCopilot</span> <span class="k">class</span>
+<span class="w">   </span><span class="err">- </span><span class="nc">summarize_incident</span><span class="p">():</span> <span class="n">Generate</span> <span class="n">structured</span> <span class="n">summaries</span>
+   <span class="o">-</span> <span class="n">suggest_mitigation</span><span class="p">():</span> <span class="n">Create</span> <span class="n">actionable</span> <span class="n">response</span> <span class="n">plans</span>
+   <span class="o">-</span> <span class="n">handle_noisy_input</span><span class="p">():</span> <span class="n">Clean</span> <span class="n">malformed</span> <span class="n">reports</span>
+   <span class="o">-</span> <span class="n">analyze_incident</span><span class="p">():</span> <span class="n">Complete</span> <span class="n">pipeline</span>
+
+<span class="mf">2.</span> <span class="n">Helper</span> <span class="n">functions</span>
+   <span class="o">-</span> <span class="n">_is_noisy</span><span class="p">():</span> <span class="n">Detect</span> <span class="n">poor</span> <span class="n">quality</span> <span class="nb">input</span>
+   <span class="o">-</span> <span class="n">_estimate_cost</span><span class="p">():</span> <span class="n">Calculate</span> <span class="n">API</span> <span class="n">costs</span>
+
+<span class="mf">3.</span> <span class="n">Error</span> <span class="n">handling</span> <span class="ow">and</span> <span class="n">fallbacks</span>
+
+<span class="c1"># Usage:</span>
+<span class="n">copilot</span> <span class="o">=</span> <span class="n">CybersecurityCopilot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">copilot</span><span class="o">.</span><span class="n">analyze_incident</span><span class="p">(</span><span class="n">incident_text</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">dotenv</span><span class="o">.</span><span class="n">load_dotenv</span><span class="p">()</span>
+<span class="n">OPENAI_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">,</span> <span class="n">OPENAI_API_KEY</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SecurityIncident</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data structure for security incidents&quot;&quot;&quot;</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">severity</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">category</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">raw_text</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="s1">&#39;severity&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">severity</span><span class="p">,</span>
+            <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span>
+        <span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CybersecurityCopilot</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main copilot class for incident analysis and response&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span> <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temperature</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">summarize_incident</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incident_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Summarize a security incident report</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are an expert cybersecurity analyst assistant. Your role is to help security teams quickly understand and respond to incidents.</span>
+
+<span class="s2">TASK: Summarize security incident reports concisely and accurately.</span>
+
+<span class="s2">OUTPUT FORMAT:</span>
+<span class="s2">- Executive Summary: 2-3 sentences overview</span>
+<span class="s2">- Technical Details: Key technical indicators and artifacts</span>
+<span class="s2">- Affected Systems: List of impacted systems/services</span>
+<span class="s2">- Attack Vector: Identified attack method if applicable</span>
+<span class="s2">- Severity Assessment: Critical/High/Medium/Low with justification</span>
+<span class="s2">- Timeline: Key events in chronological order</span>
+
+<span class="s2">Be precise, factual, and highlight the most critical information for rapid response.&quot;&quot;&quot;</span>
+
+        <span class="n">user_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Here are examples of how to summarize security incidents:</span>
+
+<span class="s2">EXAMPLE 1:</span>
+<span class="s2">Input: &quot;At 3:45 AM, monitoring detected unusual network traffic from server WEB-01 to external IP 45.67.89.123. Investigation revealed a PHP webshell (shell.php) uploaded through unpatched WordPress plugin. Attacker executed commands to dump database credentials. 50GB of customer data was compressed and staged for exfiltration. Server immediately isolated.&quot;</span>
+
+<span class="s2">Output:</span>
+<span class="s2">Executive Summary: Web server compromised via vulnerable WordPress plugin leading to webshell installation and attempted data exfiltration of 50GB customer data. Server has been isolated pending investigation.</span>
+
+<span class="s2">Technical Details: PHP webshell (shell.php), external C2 IP 45.67.89.123, database credential dumping, data compression and staging activities detected.</span>
+
+<span class="s2">Affected Systems: WEB-01 (primary), Database servers (credentials compromised)</span>
+
+<span class="s2">Attack Vector: Exploitation of unpatched WordPress plugin vulnerability</span>
+
+<span class="s2">Severity Assessment: CRITICAL - Customer data breach with active exfiltration attempt and database credential compromise</span>
+
+<span class="s2">Timeline:</span>
+<span class="s2">- 03:45 - Unusual outbound traffic detected</span>
+<span class="s2">- 03:46-04:00 - Investigation reveals webshell and data staging</span>
+<span class="s2">- 04:00 - Server isolation completed</span>
+
+<span class="s2">EXAMPLE 2:</span>
+<span class="s2">Input: &quot;Multiple failed RDP login attempts from IP range 192.168.45.0/24 targeting administrator and backup_admin accounts on DC-01 and DC-02. Over 10,000 attempts in 2 hours. Followed by successful login to backup_admin. New user &#39;svc_update&#39; created with domain admin rights. Mimikatz artifacts found in C:</span><span class="se">\\</span><span class="s2">Windows</span><span class="se">\\</span><span class="s2">Temp.&quot;</span>
+
+<span class="s2">Output:</span>
+<span class="s2">Executive Summary: Successful brute force attack on domain controllers via RDP, resulting in domain admin compromise. Attacker created persistence through new privileged account and deployed credential harvesting tools.</span>
+
+<span class="s2">Technical Details: 10,000+ RDP attempts from 192.168.45.0/24, Mimikatz deployment in C:</span><span class="se">\\</span><span class="s2">Windows</span><span class="se">\\</span><span class="s2">Temp, new user &#39;svc_update&#39; with domain admin privileges</span>
+
+<span class="s2">Affected Systems: DC-01, DC-02 (Domain Controllers), potentially entire Active Directory domain</span>
+
+<span class="s2">Attack Vector: RDP brute force attack targeting administrative accounts</span>
+
+<span class="s2">Severity Assessment: CRITICAL - Domain admin compromise with credential harvesting capabilities poses risk to entire infrastructure</span>
+
+<span class="s2">Timeline:</span>
+<span class="s2">- Hour 0-2: 10,000+ failed RDP attempts</span>
+<span class="s2">- Hour 2: Successful backup_admin compromise</span>
+<span class="s2">- Hour 2-3: Privilege escalation and Mimikatz deployment</span>
+
+<span class="s2">NOW, summarize the following security incident report using the same format:</span>
+
+<span class="si">{</span><span class="n">incident_text</span><span class="si">}</span>
+
+<span class="s2">Provide a structured summary following the specified format.&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+                <span class="n">temperature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_prompt</span><span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+
+            <span class="n">summary</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+            <span class="n">tokens_used</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span>
+
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span>
+                <span class="s2">&quot;tokens_used&quot;</span><span class="p">:</span> <span class="n">tokens_used</span><span class="p">,</span>
+                <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+            <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Failed to generate summary: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="kc">None</span>
+            <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">suggest_mitigation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incident_summary</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">incident_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Suggest mitigation strategies based on incident summary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are an expert incident response specialist. Generate actionable mitigation plans for security incidents.</span>
+
+<span class="s2">GUIDELINES:</span>
+<span class="s2">1. Prioritize immediate containment actions</span>
+<span class="s2">2. Include both short-term and long-term recommendations</span>
+<span class="s2">3. Consider business continuity alongside security</span>
+<span class="s2">4. Follow industry best practices (NIST, SANS)</span>
+<span class="s2">5. Be specific and actionable</span>
+
+<span class="s2">OUTPUT FORMAT:</span>
+<span class="s2">## Immediate Actions (0-4 hours)</span>
+<span class="s2">- Specific containment steps</span>
+<span class="s2">- Evidence preservation</span>
+<span class="s2">- Communication requirements</span>
+
+<span class="s2">## Short-term Remediation (1-7 days)</span>
+<span class="s2">- System hardening</span>
+<span class="s2">- Patch management</span>
+<span class="s2">- Access control updates</span>
+
+<span class="s2">## Long-term Improvements (1-4 weeks)</span>
+<span class="s2">- Process improvements</span>
+<span class="s2">- Security control enhancements</span>
+<span class="s2">- Training recommendations</span>
+
+<span class="s2">## Success Metrics</span>
+<span class="s2">- KPIs to measure mitigation effectiveness&quot;&quot;&quot;</span>
+
+        <span class="c1"># Enhanced prompt with few-shot example for better results</span>
+        <span class="n">user_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Based on this incident summary, provide a comprehensive mitigation plan:</span>
+
+<span class="si">{</span><span class="n">incident_summary</span><span class="si">}</span>
+
+<span class="si">{</span><span class="sa">f</span><span class="s2">&quot;Incident Type: </span><span class="si">{</span><span class="n">incident_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">incident_type</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="si">}</span>
+
+<span class="s2">Consider the severity, affected systems, and potential for lateral movement. Provide specific, actionable steps.&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+                <span class="n">temperature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_prompt</span><span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+
+            <span class="n">mitigation_plan</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+            <span class="n">tokens_used</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span>
+
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;mitigation_plan&quot;</span><span class="p">:</span> <span class="n">mitigation_plan</span><span class="p">,</span>
+                <span class="s2">&quot;tokens_used&quot;</span><span class="p">:</span> <span class="n">tokens_used</span><span class="p">,</span>
+                <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+            <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Failed to generate mitigation plan: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mitigation_plan&quot;</span><span class="p">:</span> <span class="kc">None</span>
+            <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_noisy_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clean and structure noisy or incomplete incident reports</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a data preprocessing expert for security incidents. You have a vast knowledge of various cyber security incidents.</span>
+
+<span class="s2">TASK: Clean and structure potentially noisy, incomplete, or poorly formatted security incident data.</span>
+
+<span class="s2">INSTRUCTIONS:</span>
+<span class="s2">1. Extract all relevant security information</span>
+<span class="s2">2. Fill in obvious gaps with [MISSING: field_name]</span>
+<span class="s2">3. Standardize technical terms and acronyms</span>
+<span class="s2">4. Remove redundant information</span>
+<span class="s2">5. Flag any suspicious or potentially corrupted data</span>
+<span class="s2">6. Maintain all IoCs (Indicators of Compromise)</span>
+
+<span class="s2">OUTPUT: A cleaned, structured version of the incident report.&quot;&quot;&quot;</span>
+
+        <span class="n">user_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Clean and structure this potentially noisy incident report:</span>
+
+<span class="si">{</span><span class="n">raw_text</span><span class="si">}</span>
+
+<span class="s2">Preserve all security-relevant information while improving clarity.&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+                <span class="n">temperature</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># Lower temperature for cleaning tasks</span>
+                <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_prompt</span><span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error cleaning input: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">Original text: </span><span class="si">{</span><span class="n">raw_text</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_incident</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incident_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">include_mitigation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete incident analysis pipeline</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">&quot;input_length&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">incident_text</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Step 1: Clean input if needed</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_noisy</span><span class="p">(</span><span class="n">incident_text</span><span class="p">):</span>
+            <span class="n">cleaned_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_noisy_input</span><span class="p">(</span><span class="n">incident_text</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;cleaned_input&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleaned_text</span>
+            <span class="n">incident_text</span> <span class="o">=</span> <span class="n">cleaned_text</span>
+
+        <span class="c1"># Step 2: Generate summary</span>
+        <span class="n">summary_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize_incident</span><span class="p">(</span><span class="n">incident_text</span><span class="p">)</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary_result</span>
+
+        <span class="c1"># Step 3: Generate mitigation plan if requested</span>
+        <span class="k">if</span> <span class="n">include_mitigation</span> <span class="ow">and</span> <span class="n">summary_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">):</span>
+            <span class="n">mitigation_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">suggest_mitigation</span><span class="p">(</span><span class="n">summary_result</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">])</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;mitigation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mitigation_result</span>
+
+        <span class="c1"># Calculate total tokens and estimated cost</span>
+        <span class="n">total_tokens</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">summary_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tokens_used&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mitigation&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tokens_used&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;total_tokens&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_tokens</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;estimated_cost&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_cost</span><span class="p">(</span><span class="n">total_tokens</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_noisy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detect if input text appears noisy or poorly formatted</span>
+<span class="sd">        (in production env, I will probably implement some encoder based classifier or LLM based)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">indicators</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">,</span>  <span class="c1"># Too many line breaks</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;===&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># Excessive separators</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">,</span>  <span class="c1"># Multiple spaces</span>
+            <span class="nb">any</span><span class="p">(</span><span class="n">char</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;�&#39;</span><span class="p">,</span> <span class="s1">&#39;□&#39;</span><span class="p">,</span> <span class="s1">&#39;▪&#39;</span><span class="p">]),</span>  <span class="c1"># Encoding issues</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="n">text</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">,</span>  <span class="c1"># All caps</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">indicators</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_estimate_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Estimate cost based on token usage (GPT-4 pricing as example)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Approximate pricing per 1K tokens (adjust based on your model)</span>
+        <span class="n">pricing</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mf">0.00015</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mf">0.0006</span><span class="p">},</span>
+            <span class="s2">&quot;gpt-4&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mf">0.06</span><span class="p">},</span>
+            <span class="s2">&quot;gpt-5-nano&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">model_pricing</span> <span class="o">=</span> <span class="n">pricing</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Rough estimate: 60% input, 40% output</span>
+        <span class="n">estimated_cost</span> <span class="o">=</span> <span class="p">(</span><span class="n">tokens</span> <span class="o">*</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">model_pricing</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span> <span class="o">+</span>
+                         <span class="n">tokens</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">model_pricing</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1000</span>
+
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">estimated_cost</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Example usage and testing</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">demo_copilot</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Demonstrate the copilot functionality&quot;&quot;&quot;</span>
+
+    <span class="c1"># Initialize copilot</span>
+    <span class="n">copilot</span> <span class="o">=</span> <span class="n">CybersecurityCopilot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Sample incident report</span>
+    <span class="n">sample_incident</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    INCIDENT REPORT - 2024-01-15 14:23:00 UTC</span>
+
+<span class="s2">    Multiple failed login attempts detected on production server PROD-WEB-01.</span>
+<span class="s2">    Source IPs: 192.168.1.105, 10.0.0.23, 45.142.122.76 (external)</span>
+
+<span class="s2">    User accounts targeted: admin, root, dbadmin, service_account</span>
+<span class="s2">    Total attempts: 2,847 over 3 hour period</span>
+
+<span class="s2">    Additional observations:</span>
+<span class="s2">    - Unusual outbound traffic to IP 45.142.122.76 port 4444</span>
+<span class="s2">    - New scheduled task created: &quot;WindowsUpdate&quot; (suspicious)</span>
+<span class="s2">    - Memory usage spike at 14:45 UTC</span>
+<span class="s2">    - PowerShell execution with encoded command detected</span>
+
+<span class="s2">    Current status: Server isolated from network</span>
+<span class="s2">    Severity: HIGH</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Noisy incident example</span>
+    <span class="n">noisy_incident</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    ===ALERT===ALERT===</span>
+<span class="s2">    TIME:::    03:45am</span>
+
+<span class="s2">    firewall logs showing..... BLOCKED BLOCKED BLOCKED</span>
+<span class="s2">    IP: 123.456.789.0 (obviously wrong)    port 22 SSH</span>
+
+<span class="s2">    admin said virus maybe???? check asap!!!</span>
+
+<span class="s2">    CPU 100</span><span class="si">%%%%%%%%</span><span class="s2">%</span>
+<span class="s2">    [DATA CORRUPTED] ▪▪▪▪▪</span>
+
+<span class="s2">    need help urgent    password changed already</span>
+
+<span class="s2">    ===END===</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CYBERSECURITY COPILOT DEMO&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+    <span class="c1"># Test with clean incident</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">1. ANALYZING CLEAN INCIDENT REPORT:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">copilot</span><span class="o">.</span><span class="n">analyze_incident</span><span class="p">(</span><span class="n">sample_incident</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SUMMARY:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">][</span><span class="s2">&quot;summary&quot;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mitigation&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mitigation_plan&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">MITIGATION PLAN:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;mitigation&quot;</span><span class="p">][</span><span class="s2">&quot;mitigation_plan&quot;</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tokens used: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total_tokens&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated cost: $</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;estimated_cost&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Test with noisy incident</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. HANDLING NOISY INPUT:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">copilot</span><span class="o">.</span><span class="n">handle_noisy_input</span><span class="p">(</span><span class="n">noisy_incident</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CLEANED OUTPUT:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cleaned</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. ANALYZING CLEANED INCIDENT REPORT:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">copilot</span><span class="o">.</span><span class="n">analyze_incident</span><span class="p">(</span><span class="n">cleaned</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SUMMARY:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">][</span><span class="s2">&quot;summary&quot;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mitigation&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mitigation_plan&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">MITIGATION PLAN:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;mitigation&quot;</span><span class="p">][</span><span class="s2">&quot;mitigation_plan&quot;</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tokens used: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total_tokens&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated cost: $</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;estimated_cost&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">copilot</span><span class="p">,</span> <span class="n">result</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">copilot</span><span class="p">,</span> <span class="n">results</span> <span class="o">=</span> <span class="n">demo_copilot</span><span class="p">()</span>
+</code></pre></div>
+
+<details>  
+<summary> Demo Copilot: </summary>
+
+<div class="highlight"><pre><span></span><code>    ============================================================
+    CYBERSECURITY COPILOT DEMO
+    ============================================================
+
+    1. ANALYZING CLEAN INCIDENT REPORT:
+    ----------------------------------------
+
+    SUMMARY:
+    Executive Summary: Multiple failed login attempts targeted critical accounts on production server PROD-WEB-01, followed by suspicious activity including outbound traffic and unauthorized scheduled task creation. The server has been isolated to prevent further compromise.
+
+    Technical Details: 2,847 login attempts from IPs 192.168.1.105, 10.0.0.23, and external IP 45.142.122.76; unusual outbound traffic to IP 45.142.122.76 on port 4444; PowerShell execution with encoded command; new scheduled task &quot;WindowsUpdate&quot; created.
+
+    Affected Systems: PROD-WEB-01 (primary)
+
+    Attack Vector: Brute force login attempts targeting admin-level accounts
+
+    Severity Assessment: HIGH - Significant risk due to multiple failed login attempts on critical accounts and potential unauthorized access indicated by suspicious outbound traffic and task creation.
+
+    Timeline:
+    - 14:23 - Multiple failed login attempts detected
+    - 14:45 - Memory usage spike observed
+    - 14:45 - Outbound traffic to IP 45.142.122.76 on port 4444 detected
+    - 14:45 - PowerShell execution with encoded command detected
+    - 14:50 - New scheduled task &quot;WindowsUpdate&quot; created
+    - 15:00 - Server isolation completed
+
+    MITIGATION PLAN:
+    ## Immediate Actions (0-4 hours)
+    - **Containment Steps:**
+      - Confirm isolation of PROD-WEB-01 from the network to prevent further unauthorized access.
+      - Block all traffic from the identified suspicious IP addresses (192.168.1.105, 10.0.0.23, and 45.142.122.76) at the firewall level.
+      - Disable all accounts that experienced failed login attempts, especially admin-level accounts.
+
+    - **Evidence Preservation:**
+      - Take a forensic image of PROD-WEB-01 to preserve the current state, including logs, memory, and disk contents.
+      - Collect and secure logs from the firewall, intrusion detection systems, and server logs to analyze the attack vector and timeline.
+      - Document all actions taken during the incident response for future reference.
+
+    - **Communication Requirements:**
+      - Notify the incident response team and relevant stakeholders (IT management, security team) about the incident and containment measures.
+      - Prepare a communication plan for affected users and departments, ensuring they are aware of the incident and any potential impacts.
+
+    ## Short-term Remediation (1-7 days)
+    - **System Hardening:**
+      - Review and enforce password policies, ensuring complexity and expiration requirements are met.
+      - Implement account lockout policies to prevent brute force attacks.
+      - Disable unnecessary services and ports on PROD-WEB-01 to minimize attack surfaces.
+
+    - **Patch Management:**
+      - Ensure that all software, including the operating system and applications on PROD-WEB-01, is up to date with the latest security patches.
+      - Review and apply any critical patches related to known vulnerabilities that could have been exploited.
+
+    - **Access Control Updates:**
+      - Review user access permissions and roles, ensuring the principle of least privilege is enforced.
+      - Implement multi-factor authentication (MFA) for all critical accounts to add an additional layer of security.
+
+    ## Long-term Improvements (1-4 weeks)
+    - **Process Improvements:**
+      - Develop and implement an incident response plan that includes specific steps for handling brute force attacks and suspicious activity.
+      - Establish a regular review process for security logs and alerts to identify potential threats proactively.
+
+    - **Security Control Enhancements:**
+      - Deploy an intrusion detection/prevention system (IDS/IPS) to monitor for unusual activities and automate responses to potential threats.
+      - Implement a centralized logging solution to aggregate logs from all critical systems for better visibility and analysis.
+
+    - **Training Recommendations:**
+      - Conduct security awareness training for all employees, focusing on recognizing phishing attempts and the importance of strong password practices.
+      - Provide specialized training for IT staff on incident response, threat hunting, and forensic analysis.
+
+    ## Success Metrics
+    - **KPIs to Measure Mitigation Effectiveness:**
+      - Reduction in the number of failed login attempts by 90% within the next month.
+      - Time to detect and respond to suspicious activities reduced to under 30 minutes.
+      - Completion of security awareness training for 100% of employees within the next quarter.
+      - Implementation of multi-factor authentication across 100% of critical accounts within 4 weeks.
+      - Regular audits of user access permissions with a compliance rate of 100% to the principle of least privilege.
+
+    Tokens used: 2221
+    Estimated cost: $0.0007
+
+    ============================================================
+    2. HANDLING NOISY INPUT:
+    ----------------------------------------
+    CLEANED OUTPUT:
+    **Incident Report**
+
+    **Incident Time:** 03:45 AM
+
+    **Incident Type:** Firewall Block
+
+    **Details:**
+    - **Firewall Logs:** Blocked access attempts
+    - **Source IP Address:** 123.456.789.0 [MISSING: VALID_IP_ADDRESS]
+    - **Port:** 22 (SSH)
+    - **Potential Threat:** Virus suspected [MISSING: THREAT_DETAILS]
+    - **CPU Usage:** 100% [MISSING: CPU_USAGE_DETAILS]
+    - **Data Status:** [DATA CORRUPTED] [FLAGGED: DATA_CORRUPTION]
+
+    **Actions Taken:**
+    - Password changed already [MISSING: PASSWORD_CHANGE_DETAILS]
+
+    **Urgency Level:** High
+
+    **Additional Notes:**
+    - Admin requested immediate assistance.
+
+    **Indicators of Compromise (IoCs):**
+    - Source IP: 123.456.789.0
+    - Port: 22 (SSH)
+
+    **Recommendations:**
+    - Verify the validity of the source IP address.
+    - Investigate potential virus presence.
+    - Monitor CPU usage for anomalies.
+    - Review password change logs for unauthorized access. 
+
+    **End of Report**
+
+    ============================================================
+    3. ANALYZING CLEANED INCIDENT REPORT:
+    ----------------------------------------
+
+    SUMMARY:
+    Executive Summary: A high urgency incident was detected involving multiple blocked SSH access attempts from a suspicious IP address, leading to 100% CPU usage and flagged data corruption. Immediate actions included changing passwords and requesting further investigation into potential virus threats.
+
+    Technical Details: Blocked access attempts from source IP 123.456.789.0 on port 22 (SSH), 100% CPU usage observed, data corruption flagged.
+
+    Affected Systems: Affected system(s) with SSH access (specific system not identified).
+
+    Attack Vector: Unauthorized SSH access attempts potentially linked to a virus.
+
+    Severity Assessment: HIGH - High CPU usage and data corruption indicate a serious threat, requiring immediate investigation and remediation.
+
+    Timeline:
+    - 03:45 AM - Firewall logs show blocked SSH access attempts from 123.456.789.0
+    - Immediate - CPU usage spikes to 100%, data corruption flagged
+    - Immediate - Passwords changed, admin requests assistance for further investigation
+
+    MITIGATION PLAN:
+    ## Immediate Actions (0-4 hours)
+    - **Containment Steps:**
+      - Isolate affected systems from the network to prevent lateral movement and further data corruption.
+      - Block the suspicious IP address (123.456.789.0) at the firewall level to prevent any further access attempts.
+      - Disable SSH access on affected systems temporarily until a full investigation can be conducted.
+
+    - **Evidence Preservation:**
+      - Collect and secure logs from the firewall, SSH access attempts, and system performance metrics (CPU usage, memory usage).
+      - Create a forensic image of the affected systems to preserve the current state for further analysis.
+      - Document all actions taken during the incident response for future reference and compliance.
+
+    - **Communication Requirements:**
+      - Notify the incident response team and relevant stakeholders (IT, management, legal) about the incident and actions taken.
+      - Prepare a communication plan for informing affected users about potential data loss and ongoing investigations.
+
+    ## Short-term Remediation (1-7 days)
+    - **System Hardening:**
+      - Review and strengthen SSH configurations, including disabling root login, enforcing key-based authentication, and changing the default SSH port if applicable.
+      - Implement fail2ban or similar tools to limit the number of failed login attempts and block offending IP addresses.
+
+    - **Patch Management:**
+      - Conduct a vulnerability assessment on the affected systems and apply necessary patches to the operating system, SSH service, and any other relevant software.
+      - Ensure that all systems have the latest security updates installed to mitigate known vulnerabilities.
+
+    - **Access Control Updates:**
+      - Review user accounts with SSH access and remove any unnecessary or inactive accounts.
+      - Implement role-based access control (RBAC) to ensure that only authorized personnel have SSH access to critical systems.
+
+    ## Long-term Improvements (1-4 weeks)
+    - **Process Improvements:**
+      - Develop and implement an incident response plan that includes specific procedures for handling unauthorized access attempts and data corruption incidents.
+      - Establish a regular review process for firewall rules and access controls to ensure they are up-to-date and effective.
+
+    - **Security Control Enhancements:**
+      - Deploy an Intrusion Detection System (IDS) or Intrusion Prevention System (IPS) to monitor for suspicious activity and provide real-time alerts.
+      - Implement multi-factor authentication (MFA) for all remote access services, including SSH, to add an additional layer of security.
+
+    - **Training Recommendations:**
+      - Conduct security awareness training for all employees, focusing on recognizing phishing attempts and the importance of strong password practices.
+      - Provide specialized training for system administrators on secure SSH configurations and incident response procedures.
+
+    ## Success Metrics
+    - **KPIs to Measure Mitigation Effectiveness:**
+      - Reduction in the number of blocked SSH access attempts over a defined period (e.g., monthly).
+      - Decrease in CPU usage spikes and incidents of data corruption reported in the following months.
+      - Percentage of systems compliant with updated security configurations and patch management policies.
+      - Number of employees completing security awareness training and their subsequent performance in phishing simulations.
+      - Time taken to detect and respond to future incidents, aiming for a reduction in response time compared to this incident.
+
+    Tokens used: 2114
+    Estimated cost: $0.0007
+</code></pre></div>
+
+
+</details>
+<h2 id="5-retrieval-pipeline-rag-component">5. Retrieval Pipeline (RAG Component)<a class="toc-permalink" href="#5-retrieval-pipeline-rag-component" title="Link to this section">&para;</a></h2>
+<h3 id="implementation-overview">Implementation Overview<a class="toc-permalink" href="#implementation-overview" title="Link to this section">&para;</a></h3>
+<p>The RAG component implements an intelligent search system combining
+semantic search with metadata filtering using LangChain\'s self-query
+retriever for natural language understanding.</p>
+<h3 id="architecture">Architecture<a class="toc-permalink" href="#architecture" title="Link to this section">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────┐
+│   Natural Language  │
+│      Query Input    │
+└──────────┬──────────┘
+           │
+     ┌─────▼─────┐
+     │   Query   │
+     │Constructor│
+     │   (LLM)   │
+     └─────┬─────┘
+           │
+     ┌─────▼─────┐
+     │Structured │
+     │   Query   │
+     └─────┬─────┘
+           │
+     ┌─────┴─────┐
+     │           │
+     ▼           ▼
+┌─────────┐ ┌─────────┐
+│Semantic │ │Metadata │
+│ Search  │ │Filtering│
+│(Chroma) │ │ (Self-  │
+│         │ │ Query)  │
+└────┬────┘ └────┬────┘
+     │           │
+     └─────┬─────┘
+           ▼
+   ┌──────────────┐
+   │Combined      │
+   │Results       │
+   └──────┬───────┘
+          ▼
+   ┌──────────────┐
+   │ Top-K Results│
+   └──────────────┘
+</code></pre></div>
+
+<h3 id="key-components">Key Components<a class="toc-permalink" href="#key-components" title="Link to this section">&para;</a></h3>
+<h4 id="1-vector-search-engine">1. Vector Search Engine<a class="toc-permalink" href="#1-vector-search-engine" title="Link to this section">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">Components</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">Chroma</span> <span class="n">vector</span> <span class="n">database</span> <span class="k">for</span> <span class="n">semantic</span> <span class="n">similarity</span>
+    <span class="o">-</span> <span class="n">OpenAI</span> <span class="n">text</span><span class="o">-</span><span class="n">embedding</span><span class="o">-</span><span class="n">ada</span><span class="o">-</span><span class="mi">002</span> <span class="k">for</span> <span class="n">embeddings</span>
+    <span class="o">-</span> <span class="n">Self</span><span class="o">-</span><span class="n">query</span> <span class="n">retriever</span> <span class="k">for</span> <span class="n">intelligent</span> <span class="n">query</span> <span class="n">parsing</span>
+    <span class="o">-</span> <span class="n">Custom</span> <span class="n">query</span> <span class="n">constructor</span> <span class="k">with</span> <span class="n">LangChain</span>
+</code></pre></div>
+
+<h4 id="2-incident-knowledge-base">2. Incident Knowledge Base<a class="toc-permalink" href="#2-incident-knowledge-base" title="Link to this section">&para;</a></h4>
+<p><strong>15 Pre-loaded Security Incidents covering:</strong></p>
+<ul>
+<li>SQL Injection attacks</li>
+<li>Brute force attempts (SSH, RDP)</li>
+<li>Phishing campaigns</li>
+<li>Ransomware encryption attempts</li>
+<li>Data exfiltration (DNS tunneling)</li>
+<li>Privilege escalation</li>
+<li>DDoS attacks</li>
+<li>Insider threats</li>
+<li>Zero-day exploits</li>
+<li>Cryptomining malware</li>
+<li>API key exposures</li>
+<li>Supply chain attacks</li>
+<li>Password spraying</li>
+<li>Cross-site scripting (XSS)</li>
+</ul>
+<p>Each incident contains:</p>
+<ul>
+<li>Unique identifier (INC-XXX)</li>
+<li>Title and detailed description</li>
+<li>Severity level (CRITICAL/HIGH/MEDIUM/LOW)</li>
+<li>Category (attack type classification)</li>
+<li>Timestamp (ISO format)</li>
+<li>Year (extracted for temporal filtering)</li>
+</ul>
+<h4 id="3-search-methods">3. Search Methods<a class="toc-permalink" href="#3-search-methods" title="Link to this section">&para;</a></h4>
+<p><strong>Semantic Search:</strong></p>
+<ul>
+<li>Uses OpenAI embeddings via LangChain</li>
+<li>Vector similarity search in Chroma</li>
+<li>Best for: Conceptual queries, attack patterns, behavioral
+    descriptions</li>
+</ul>
+<p><strong>Metadata Filtering:</strong></p>
+<ul>
+<li>Automatic extraction from natural language</li>
+<li>Supports filters on: severity, category, year</li>
+<li>Logical operators: AND, OR, EQ, GT, LT, etc.</li>
+<li>Best for: Specific criteria, temporal queries, severity-based
+    searches</li>
+</ul>
+<p><strong>Self-Query Retrieval:</strong></p>
+<ul>
+<li>Natural language to structured query translation</li>
+<li>Combines semantic search with metadata filters</li>
+<li>Example: \"Show me brute force attacks with high severity in 2024\"<ul>
+<li>Semantic: searches for \"brute force attacks\"</li>
+<li>Filter: <code>and(eq("severity", "HIGH"), eq("year", 2024))</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="query-constructor-details">Query Constructor Details<a class="toc-permalink" href="#query-constructor-details" title="Link to this section">&para;</a></h3>
+<p>The system uses a custom prompt template that:</p>
+<ol>
+<li><strong>Parses</strong> natural language into structured components</li>
+<li><strong>Separates</strong> semantic content from metadata filters</li>
+<li><strong>Generates</strong> proper filter expressions</li>
+<li><strong>Handles</strong> complex logical operations</li>
+</ol>
+<p>Example structured query format:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;brute force attacks&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;and(eq(\&quot;severity\&quot;, \&quot;HIGH\&quot;), eq(\&quot;year\&quot;, 2024))&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="supported-metadata-fields">Supported Metadata Fields<a class="toc-permalink" href="#supported-metadata-fields" title="Link to this section">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>severity</td>
+<td>string</td>
+<td>Incident severity level</td>
+<td>LOW, MEDIUM, HIGH, CRITICAL</td>
+</tr>
+<tr>
+<td>category</td>
+<td>string</td>
+<td>Attack type classification</td>
+<td>"Unauthorized Access", "Malware", "Web Application Attack"</td>
+</tr>
+<tr>
+<td>year</td>
+<td>integer</td>
+<td>Year of incident</td>
+<td>2024, 2023, etc.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage-example">Usage Example<a class="toc-permalink" href="#usage-example" title="Link to this section">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize with OpenAI API key</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">OPENAI_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+<span class="c1"># Setup retriever with custom query constructor</span>
+<span class="n">retriever</span><span class="p">,</span> <span class="n">vectorstore</span><span class="p">,</span> <span class="n">query_constructor</span> <span class="o">=</span> <span class="n">setup_retriever</span><span class="p">(</span><span class="n">OPENAI_API_KEY</span><span class="p">)</span>
+
+<span class="c1"># Natural language queries automatically parsed</span>
+<span class="n">queries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Show me brute force attacks with high severity in 2024&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Find critical incidents from 2024&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;What ransomware incidents do we have?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Show me all unauthorized access attempts&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Find malware with high or critical severity&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># Search for incidents</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">search_incidents</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">retriever</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="query-examples-and-expected-behavior">Query Examples and Expected Behavior<a class="toc-permalink" href="#query-examples-and-expected-behavior" title="Link to this section">&para;</a></h3>
+<hr />
+<p>Query          Semantic Search              Metadata Filter</p>
+<hr />
+<p>\"brute force  \"brute force\"              <code>and(eq("severity", "HIGH"), eq("year", 2024))</code>
+  high severity                             <br />
+  2024\"                                      </p>
+<p>\"critical     \"ransomware\"               <code>eq("severity", "CRITICAL")</code>
+  ransomware\"                                </p>
+<p>\"2024 malware \"malware incidents\"        <code>eq("year", 2024)</code>
+  incidents\"                                 </p>
+<p>\"phishing     \"phishing attacks\"         NO_FILTER
+  attacks\"                                   </p>
+<hr />
+<h3 id="scaling-considerations">Scaling Considerations<a class="toc-permalink" href="#scaling-considerations" title="Link to this section">&para;</a></h3>
+<p><strong>Current Implementation (PoC):</strong></p>
+<ul>
+<li>In-memory Chroma database</li>
+<li>15 sample incidents</li>
+<li>Single-threaded operation</li>
+<li>Local vector storage</li>
+</ul>
+<p><strong>Production Scaling Recommendations:</strong></p>
+<ul>
+<li>Migrate to persistent Chroma with disk storage</li>
+<li>Implement Chroma client-server architecture for distributed access</li>
+<li>Add Redis caching layer for frequent queries</li>
+<li>Use batch embedding generation for new incidents</li>
+<li>Implement async query processing</li>
+<li>Consider Pinecone/Weaviate for larger scale (100K+ incidents)</li>
+<li>Add query result caching with TTL</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">langchain</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="n">langchain</span><span class="o">-</span><span class="n">chroma</span> <span class="n">langchain</span><span class="o">-</span><span class="n">community</span> <span class="n">chromadb</span> <span class="n">openai</span> <span class="n">lark</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Cybersecurity Copilot - Simple RAG Pipeline with Semantic Search and Metadata Filtering</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dotenv</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_chroma</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chroma</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.chains.query_constructor.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">AttributeInfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.retrievers.self_query.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelfQueryRetriever</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">dotenv</span><span class="o">.</span><span class="n">load_dotenv</span><span class="p">()</span>
+</code></pre></div>
+
+<details>  
+<summary> INCIDENTS_DATA</summary>
+
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Sample incident data</span>
+<span class="n">INCIDENTS_DATA</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-001&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;SQL Injection Attack on Web Application&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Multiple SQL injection attempts detected on login endpoint. Attacker tried to bypass authentication using various payloads. WAF blocked most attempts but one succeeded.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;HIGH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-01-10T08:15:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Web Application Attack&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-002&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Brute Force Attack on SSH Service&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Detected 2,847 failed SSH login attempts over 3 hours on port 22. Successful breach followed by backdoor installation. Attacker gained root access and established persistence.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;HIGH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-01-15T14:23:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Brute Force&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-003&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Phishing Campaign Targeting Employees&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Sophisticated phishing emails mimicking IT department notifications. 12 employees clicked malicious links. Two credentials were compromised before detection.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;MEDIUM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-02-01T09:30:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Social Engineering&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-004&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Ransomware Encryption Attempt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;WannaCry variant detected attempting to encrypt network shares. EDR solution quarantined the process. No data was encrypted. Isolated infected machine from network.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;CRITICAL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-02-15T03:45:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Malware&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-005&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Exfiltration via DNS Tunneling&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Abnormal DNS query patterns detected. Investigation revealed 2GB of sensitive data transmitted via DNS tunneling to external server. Source was compromised workstation.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;HIGH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-03-01T16:20:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Breach&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-006&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Privilege Escalation on Linux Server&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Attacker exploited CVE-2024-1234 to escalate privileges from www-data to root. Kernel vulnerability allowed local privilege escalation. Patch applied immediately.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;HIGH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-03-10T11:00:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;System Compromise&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-007&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;DDoS Attack on Public Services&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Volumetric DDoS attack peaking at 100 Gbps. Multiple botnets involved. CloudFlare mitigation activated. Services remained available with degraded performance.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;MEDIUM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-03-20T18:30:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Denial of Service&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-008&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Insider Threat - Unauthorized Data Access&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Employee accessed confidential HR records without authorization. Audit logs show systematic download of employee personal information. User account suspended pending investigation.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;HIGH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-05T13:15:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Insider Threat&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-009&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Zero-Day Exploit in Email Server&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Previously unknown vulnerability in Exchange server exploited. Attacker gained remote code execution capabilities. Emergency patch deployed. Full forensic analysis ongoing.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;CRITICAL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-04-12T07:00:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Zero-Day Attack&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-010&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Cryptomining Malware on Workstations&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Multiple workstations infected with Monero mining malware. High CPU usage reported. Malware spread via infected USB drives. All instances removed and USB ports disabled.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;LOW&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-04-20T10:45:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Malware&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-011&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;API Key Exposure in GitHub Repository&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Production API keys found in public GitHub repository. Keys provided access to customer database. Immediately rotated all keys and implemented secret scanning.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;HIGH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-05-01T14:00:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Configuration Error&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-012&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Brute Force Attack on RDP Services&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Detected 5,000+ failed RDP login attempts from distributed IPs. Attack targeted administrator accounts. Implemented account lockout policy and IP blocking.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;MEDIUM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-05-10T22:30:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Unauthorized Access&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-013&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Supply Chain Attack via Third-Party Library&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Malicious code discovered in npm package dependency. Package was compromised and included credential stealer. Removed package and audited all dependencies.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;HIGH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;1994-05-20T09:00:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Supply Chain Attack&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-014&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Password Spraying Attack&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Low and slow password attack using common passwords across multiple accounts. Three accounts compromised before detection. MFA enforcement initiated company-wide.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;MEDIUM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-06-01T15:45:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Unauthorized Access&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;INC-015&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Cross-Site Scripting (XSS) in Web Portal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Stored XSS vulnerability found in customer portal comment section. Could execute arbitrary JavaScript in user browsers. Patched immediately, no evidence of exploitation.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;MEDIUM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-06-15T11:30:00Z&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;Web Application Attack&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+
+</details>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">setup_retriever</span><span class="p">(</span><span class="n">openai_api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set up the vector store and self-query retriever for semantic search with metadata filtering</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Initialize embeddings</span>
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span><span class="n">openai_api_key</span><span class="o">=</span><span class="n">openai_api_key</span><span class="p">)</span>
+
+    <span class="c1"># Prepare documents for vector store</span>
+    <span class="n">documents</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">incident</span> <span class="ow">in</span> <span class="n">INCIDENTS_DATA</span><span class="p">:</span>
+        <span class="c1"># Combine title and description for better semantic search</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">incident</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">incident</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="c1"># Extract year from timestamp for easier filtering</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">incident</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;+00:00&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">year</span>
+
+        <span class="c1"># Create metadata</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">incident</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="n">incident</span><span class="p">[</span><span class="s2">&quot;severity&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">incident</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">incident</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="n">documents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="c1"># Create Chroma vector store</span>
+    <span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+        <span class="n">documents</span><span class="o">=</span><span class="n">documents</span><span class="p">,</span>
+        <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
+        <span class="n">collection_name</span><span class="o">=</span><span class="s2">&quot;security_incidents&quot;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Define metadata fields for self-query</span>
+    <span class="n">metadata_field_info</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">AttributeInfo</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;severity&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The severity level of the incident&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">AttributeInfo</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The category or type of security incident&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">AttributeInfo</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The year when the incident occurred&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Document description for the LLM</span>
+    <span class="n">document_content_description</span> <span class="o">=</span> <span class="s2">&quot;Security incident reports containing title and description&quot;</span>
+
+    <span class="c1"># Create self-query retriever</span>
+    <span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">openai_api_key</span><span class="o">=</span><span class="n">openai_api_key</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+
+    <span class="n">retriever</span> <span class="o">=</span> <span class="n">SelfQueryRetriever</span><span class="o">.</span><span class="n">from_llm</span><span class="p">(</span>
+        <span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span>
+        <span class="n">vectorstore</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">,</span>
+        <span class="n">document_contents</span><span class="o">=</span><span class="n">document_content_description</span><span class="p">,</span>
+        <span class="n">metadata_field_info</span><span class="o">=</span><span class="n">metadata_field_info</span><span class="p">,</span>
+        <span class="n">enable_limit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Disable limit to avoid parsing issues</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Set to True to see the generated queries</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">retriever</span><span class="p">,</span> <span class="n">vectorstore</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_incidents</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">retriever</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Search for incidents using natural language query with semantic search and metadata filtering</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Retrieve relevant documents - using invoke instead of deprecated method</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">query</span><span class="p">)[:</span><span class="n">k</span><span class="p">]</span>  <span class="c1"># Limit results to k</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Warning: Query parsing failed, falling back to similarity search&quot;</span><span class="p">)</span>
+        <span class="c1"># Fallback to simple similarity search if self-query fails</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">vectorstore</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="c1"># Format results</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">,</span>
+            <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;severity&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;relevance_score&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main function to demonstrate the RAG pipeline</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Set your OpenAI API key</span>
+    <span class="n">OPENAI_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">,</span> <span class="s2">&quot;your-api-key-here&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">OPENAI_API_KEY</span> <span class="o">==</span> <span class="s2">&quot;your-api-key-here&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠️  Please set your OPENAI_API_KEY environment variable or update the code&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🚀 Initializing Cybersecurity Copilot RAG Pipeline...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="c1"># Setup retriever</span>
+    <span class="n">retriever</span><span class="p">,</span> <span class="n">vectorstore</span> <span class="o">=</span> <span class="n">setup_retriever</span><span class="p">(</span><span class="n">OPENAI_API_KEY</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Vector store and retriever initialized&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📊 Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">INCIDENTS_DATA</span><span class="p">)</span><span class="si">}</span><span class="s2"> security incidents&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="c1"># Example queries to demonstrate capabilities</span>
+    <span class="n">test_queries</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Show me brute force attacks with high severity in 2024&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Find critical incidents from 2019&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;What ransomware incidents do we have?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Show me all unauthorized access attempts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Find incidents related to malware with high or critical severity&quot;</span>
+    <span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">🔍 Running example searches:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">query</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_queries</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">📌 Query </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">search_incidents</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">retriever</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Result </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ID: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Severity: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;severity&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Category: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Timestamp: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Summary: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][:</span><span class="mi">150</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  No matching incidents found.&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Interactive mode</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;💬 Interactive Mode - Enter your queries (type &#39;quit&#39; to exit)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>🚀 Initializing Cybersecurity Copilot RAG Pipeline...
+--------------------------------------------------
+✅ Vector store and retriever initialized
+📊 Loaded 15 security incidents
+--------------------------------------------------
+
+🔍 Running example searches:
+
+
+📌 Query 1: Show me brute force attacks with high severity in 2024
+----------------------------------------
+  No matching incidents found.
+
+📌 Query 2: Find critical incidents from 2019
+----------------------------------------
+  No matching incidents found.
+
+📌 Query 3: What ransomware incidents do we have?
+----------------------------------------
+
+  Result 1:
+  ID: INC-004
+  Severity: CRITICAL
+  Category: Malware
+  Timestamp: 2024-02-15T03:45:00Z
+  Summary: Ransomware Encryption Attempt
+WannaCry variant detected attempting to encrypt network shares. EDR solution quarantined the process. No data was encryp...
+
+  Result 2:
+  ID: INC-004
+  Severity: CRITICAL
+  Category: Malware
+  Timestamp: 2024-02-15T03:45:00Z
+  Summary: Ransomware Encryption Attempt
+WannaCry variant detected attempting to encrypt network shares. EDR solution quarantined the process. No data was encryp...
+
+  Result 3:
+  ID: INC-010
+  Severity: LOW
+  Category: Malware
+  Timestamp: 2024-04-20T10:45:00Z
+  Summary: Cryptomining Malware on Workstations
+Multiple workstations infected with Monero mining malware. High CPU usage reported. Malware spread via infected U...
+
+📌 Query 4: Show me all unauthorized access attempts
+----------------------------------------
+
+  Result 1:
+  ID: INC-008
+  Severity: HIGH
+  Category: Insider Threat
+  Timestamp: 2019-04-05T13:15:00Z
+  Summary: Insider Threat - Unauthorized Data Access
+Employee accessed confidential HR records without authorization. Audit logs show systematic download of empl...
+
+  Result 2:
+  ID: INC-008
+  Severity: HIGH
+  Category: Insider Threat
+  Timestamp: 2019-04-05T13:15:00Z
+  Summary: Insider Threat - Unauthorized Data Access
+Employee accessed confidential HR records without authorization. Audit logs show systematic download of empl...
+
+  Result 3:
+  ID: INC-001
+  Severity: HIGH
+  Category: Web Application Attack
+  Timestamp: 2024-01-10T08:15:00Z
+  Summary: SQL Injection Attack on Web Application
+Multiple SQL injection attempts detected on login endpoint. Attacker tried to bypass authentication using vari...
+
+📌 Query 5: Find incidents related to malware with high or critical severity
+----------------------------------------
+  No matching incidents found.
+
+==================================================
+💬 Interactive Mode - Enter your queries (type &#39;quit&#39; to exit)
+==================================================
+</code></pre></div>
+
+<h2 id="6-evaluation--cost-awareness">6. Evaluation &amp; Cost Awareness<a class="toc-permalink" href="#6-evaluation--cost-awareness" title="Link to this section">&para;</a></h2>
+<h3 id="performance-metrics">Performance Metrics<a class="toc-permalink" href="#performance-metrics" title="Link to this section">&para;</a></h3>
+<p><strong>Quality Metrics:</strong></p>
+<ul>
+<li><strong>Accuracy Score</strong>: Compare against human analyst summaries (target:
+    &gt;85%)</li>
+<li><strong>Completeness</strong>: % of key IoCs identified (target: &gt;95%)</li>
+<li><strong>False Positive Rate</strong>: Incorrect severity assessments (target:
+    \&lt;10%)</li>
+<li><strong>Response Relevance</strong>: Mitigation plan applicability score (1-5
+    scale)</li>
+</ul>
+<p><strong>Operational Metrics:</strong></p>
+<ul>
+<li><strong>Response Time</strong>: P50 \&lt; 3s, P95 \&lt; 8s</li>
+<li><strong>Token Efficiency</strong>: Avg tokens per incident \&lt; 1,500</li>
+<li><strong>Cost per Analysis</strong>: \&lt; \$0.005 per incident</li>
+<li><strong>Availability</strong>: 99.9% uptime</li>
+</ul>
+<h3 id="hallucination-risk-mitigation">Hallucination Risk Mitigation<a class="toc-permalink" href="#hallucination-risk-mitigation" title="Link to this section">&para;</a></h3>
+<ol>
+<li><strong>Temperature Control</strong>: Low temperature (0.3) for factual tasks</li>
+<li><strong>Structured Prompts</strong>: Explicit output format reduces creative
+    interpretation</li>
+<li><strong>Fact Verification</strong>: Cross-reference IoCs with threat intelligence
+    feeds</li>
+<li><strong>Confidence Scoring</strong>: Add uncertainty indicators for
+    low-confidence outputs</li>
+</ol>
+<h3 id="cost-estimation">Cost Estimation<a class="toc-permalink" href="#cost-estimation" title="Link to this section">&para;</a></h3>
+<p>Component       Tokens/Request   Cost/1K Tokens   Total Cost</p>
+<hr />
+<p>Summarization   800              \$0.00015        \$0.00012
+  Mitigation      600              \$0.00015        \$0.00009
+  RAG Search      200              \$0.00015        \$0.00003
+  <strong>Total</strong>       <strong>1,600</strong>        -               <strong>\$0.00024</strong></p>
+<p><strong>Monthly projection</strong> (1,000 incidents): \~\$240</p>
+<h3 id="monitoring-strategy">Monitoring Strategy<a class="toc-permalink" href="#monitoring-strategy" title="Link to this section">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Monitoring implementation</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CopilotMonitor</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">track_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;latency&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">processing_time</span><span class="p">,</span>
+            <span class="s2">&quot;tokens&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">total_tokens</span><span class="p">,</span>
+            <span class="s2">&quot;cost&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">estimated_cost</span><span class="p">,</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="s2">&quot;error_rate&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span> <span class="o">/</span> <span class="n">result</span><span class="o">.</span><span class="n">total</span><span class="p">,</span>
+            <span class="s2">&quot;cache_hit_rate&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">cache_hits</span> <span class="o">/</span> <span class="n">result</span><span class="o">.</span><span class="n">total</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Alert thresholds</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;latency&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">alert</span><span class="p">(</span><span class="s2">&quot;High latency detected&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;error_rate&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.05</span><span class="p">:</span>
+            <span class="n">alert</span><span class="p">(</span><span class="s2">&quot;Error rate exceeding threshold&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">metrics</span>
+</code></pre></div>
+
+<h3 id="performance-optimization">Performance Optimization<a class="toc-permalink" href="#performance-optimization" title="Link to this section">&para;</a></h3>
+<ol>
+<li><strong>Caching</strong>: Cache similar incident summaries (30% reduction in API
+    calls)</li>
+<li><strong>Batch Processing</strong>: Group similar incidents for efficiency</li>
+<li><strong>Model Selection</strong>: Use GPT-4o-mini for simple incidents, GPT-4 for
+    complex</li>
+<li><strong>Prompt Optimization</strong>: Continuously refine prompts based on output
+    quality</li>
+</ol>
+<h3 id="drift-detection">Drift Detection<a class="toc-permalink" href="#drift-detection" title="Link to this section">&para;</a></h3>
+<p>Monitor for:</p>
+<ul>
+<li>Changes in incident patterns requiring prompt updates</li>
+<li>Model performance degradation over time</li>
+<li>New attack vectors not covered by current prompts</li>
+<li>Feedback loop: Monthly review of low-scored outputs</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>
