@@ -8,6 +8,13 @@ The Cybersecurity Copilot is a GenAI-powered assistant designed to help
 security analysts quickly analyze incident reports, generate actionable
 mitigation plans, and retrieve similar historical incidents for context.
 
+I will say that for demonstration reasons i divided the summarizer+mitigation from the RAG component. (both are working independently).
+
+For this task i used various llms (mainly opus 4.1, gemini pro and GPT-5). I mostly did the planning and the architecture, let them built the actual code, but fix them in a lot of places.
+For example, in the RAG component, my first prototype was an hybrid search (which is very easy to implement), but with my experience, a metadata search yielding much better results.
+I didnt implement Hybrid search as well because this doc became too long.
+
+
 ### Architecture Flow
 
     ┌─────────────────┐
@@ -51,7 +58,6 @@ mitigation plans, and retrieve similar historical incidents for context.
     GPT-4.
 -   **Vector Database**: ChromaDb for local development.
 -   **Embedding Model**: text-embedding-3-small (OpenAI)
--   **Framework**: LangChain for orchestration
 -   **Monitoring**: Custom metrics tracking for tokens, latency, and
     costs
 
@@ -1219,22 +1225,12 @@ results = search_incidents(query, retriever, k=2)
 
 ### Query Examples and Expected Behavior
 
-  ---------------------------------------------------------------------------------------------
-  Query          Semantic Search              Metadata Filter
-  -------------- ---------------------------- -------------------------------------------------
-  \"brute force  \"brute force\"              `and(eq("severity", "HIGH"), eq("year", 2024))`
-  high severity                               
-  2024\"                                      
-
-  \"critical     \"ransomware\"               `eq("severity", "CRITICAL")`
-  ransomware\"                                
-
-  \"2024 malware \"malware incidents\"        `eq("year", 2024)`
-  incidents\"                                 
-
-  \"phishing     \"phishing attacks\"         NO_FILTER
-  attacks\"                                   
-  ---------------------------------------------------------------------------------------------
+| Query                           | Semantic Search       | Metadata Filter                                          |
+|---------------------------------|-----------------------|----------------------------------------------------------|
+| "brute force high severity 2024"| "brute force"         | `and(eq("severity", "HIGH"), eq("year", 2024))`         |
+| "critical ransomware"           | "ransomware"          | `eq("severity", "CRITICAL")`                             |
+| "2024 malware incidents"        | "malware incidents"   | `eq("year", 2024)`                                       |
+| "phishing attacks"              | "phishing attacks"    | NO_FILTER                                                |
 
 ### Scaling Considerations
 

@@ -47,7 +47,8 @@ def convert_md_to_html(input_file: str, output_file: str = None):
         'toc': {
             'permalink': True,
             'permalink_class': 'toc-permalink',
-            'permalink_title': 'Link to this section'
+            'permalink_title': 'Link to this section',
+            'toc_depth': 2,            # Limit TOC depth to 3 levels
         }
     })
     

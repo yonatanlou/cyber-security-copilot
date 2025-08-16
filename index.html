@@ -258,49 +258,12 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
                 <div class="toc">
 <ul>
 <li><a href="#cybersecurity-copilot-technical-documentation">Cybersecurity Copilot - Technical Documentation</a><ul>
-<li><a href="#1-solution-design--architecture">1. Solution Design &amp; Architecture</a><ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#architecture-flow">Architecture Flow</a></li>
-<li><a href="#technology-stack">Technology Stack</a></li>
-</ul>
-</li>
-<li><a href="#2-prompt-engineering">2. Prompt Engineering</a><ul>
-<li><a href="#summarization-prompt">Summarization Prompt</a></li>
-<li><a href="#mitigation-prompt">Mitigation Prompt</a></li>
-<li><a href="#edge-case-handling-noisy-input">Edge Case Handling - Noisy Input</a></li>
-</ul>
-</li>
-<li><a href="#3-sample-output">3. Sample Output</a><ul>
-<li><a href="#input-example-1-brute-force-attack">Input Example 1: Brute Force Attack</a></li>
-<li><a href="#input-example-2-noisy-data-incident">Input Example 2: Noisy data incident</a></li>
-</ul>
-</li>
+<li><a href="#1-solution-design--architecture">1. Solution Design &amp; Architecture</a></li>
+<li><a href="#2-prompt-engineering">2. Prompt Engineering</a></li>
+<li><a href="#3-sample-output">3. Sample Output</a></li>
 <li><a href="#4-working-prototype">4. Working Prototype</a></li>
-<li><a href="#5-retrieval-pipeline-rag-component">5. Retrieval Pipeline (RAG Component)</a><ul>
-<li><a href="#implementation-overview">Implementation Overview</a></li>
-<li><a href="#architecture">Architecture</a></li>
-<li><a href="#key-components">Key Components</a><ul>
-<li><a href="#1-vector-search-engine">1. Vector Search Engine</a></li>
-<li><a href="#2-incident-knowledge-base">2. Incident Knowledge Base</a></li>
-<li><a href="#3-search-methods">3. Search Methods</a></li>
-</ul>
-</li>
-<li><a href="#query-constructor-details">Query Constructor Details</a></li>
-<li><a href="#supported-metadata-fields">Supported Metadata Fields</a></li>
-<li><a href="#usage-example">Usage Example</a></li>
-<li><a href="#query-examples-and-expected-behavior">Query Examples and Expected Behavior</a></li>
-<li><a href="#scaling-considerations">Scaling Considerations</a></li>
-</ul>
-</li>
-<li><a href="#6-evaluation--cost-awareness">6. Evaluation &amp; Cost Awareness</a><ul>
-<li><a href="#performance-metrics">Performance Metrics</a></li>
-<li><a href="#hallucination-risk-mitigation">Hallucination Risk Mitigation</a></li>
-<li><a href="#cost-estimation">Cost Estimation</a></li>
-<li><a href="#monitoring-strategy">Monitoring Strategy</a></li>
-<li><a href="#performance-optimization">Performance Optimization</a></li>
-<li><a href="#drift-detection">Drift Detection</a></li>
-</ul>
-</li>
+<li><a href="#5-retrieval-pipeline-rag-component">5. Retrieval Pipeline (RAG Component)</a></li>
+<li><a href="#6-evaluation--cost-awareness">6. Evaluation &amp; Cost Awareness</a></li>
 </ul>
 </li>
 </ul>
@@ -358,7 +321,6 @@ mitigation plans, and retrieve similar historical incidents for context.</p>
     GPT-4.</li>
 <li><strong>Vector Database</strong>: ChromaDb for local development.</li>
 <li><strong>Embedding Model</strong>: text-embedding-3-small (OpenAI)</li>
-<li><strong>Framework</strong>: LangChain for orchestration</li>
 <li><strong>Monitoring</strong>: Custom metrics tracking for tokens, latency, and
     costs</li>
 </ul>
@@ -1512,19 +1474,37 @@ retriever for natural language understanding.</p>
 </code></pre></div>
 
 <h3 id="query-examples-and-expected-behavior">Query Examples and Expected Behavior<a class="toc-permalink" href="#query-examples-and-expected-behavior" title="Link to this section">&para;</a></h3>
-<hr />
-<p>Query          Semantic Search              Metadata Filter</p>
-<hr />
-<p>\"brute force  \"brute force\"              <code>and(eq("severity", "HIGH"), eq("year", 2024))</code>
-  high severity                             <br />
-  2024\"                                      </p>
-<p>\"critical     \"ransomware\"               <code>eq("severity", "CRITICAL")</code>
-  ransomware\"                                </p>
-<p>\"2024 malware \"malware incidents\"        <code>eq("year", 2024)</code>
-  incidents\"                                 </p>
-<p>\"phishing     \"phishing attacks\"         NO_FILTER
-  attacks\"                                   </p>
-<hr />
+<table>
+<thead>
+<tr>
+<th>Query</th>
+<th>Semantic Search</th>
+<th>Metadata Filter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"brute force high severity 2024"</td>
+<td>"brute force"</td>
+<td><code>and(eq("severity", "HIGH"), eq("year", 2024))</code></td>
+</tr>
+<tr>
+<td>"critical ransomware"</td>
+<td>"ransomware"</td>
+<td><code>eq("severity", "CRITICAL")</code></td>
+</tr>
+<tr>
+<td>"2024 malware incidents"</td>
+<td>"malware incidents"</td>
+<td><code>eq("year", 2024)</code></td>
+</tr>
+<tr>
+<td>"phishing attacks"</td>
+<td>"phishing attacks"</td>
+<td>NO_FILTER</td>
+</tr>
+</tbody>
+</table>
 <h3 id="scaling-considerations">Scaling Considerations<a class="toc-permalink" href="#scaling-considerations" title="Link to this section">&para;</a></h3>
 <p><strong>Current Implementation (PoC):</strong></p>
 <ul>
